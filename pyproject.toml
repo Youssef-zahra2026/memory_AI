@@ -1,0 +1,13 @@
+[project]
+name = "linalg-solver"
+version = "0.1.0"
+description = "A small linear algebra CLI agent: local 7B LLM + SQLite memory, nothing else"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26",
+    "requests>=2.31",
+    "pylatexenc>=2.10",
+]
+
+[tool.uv]
+package = false

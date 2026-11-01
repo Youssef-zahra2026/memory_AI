@@ -1,0 +1,358 @@
+{
+  "tag": "baseline",
+  "model": "qwen2.5:7b",
+  "embed_model": "nomic-embed-text",
+  "db": "/mnt/c/Users/lenovo/Desktop/memory_AI/memory.db",
+  "memory_stats": {
+    "total": 54,
+    "by_status": {
+      "seed": 52,
+      "verified": 2
+    },
+    "edges": 115
+  },
+  "summary": {
+    "n": 10,
+    "correct_memory": 8,
+    "correct_nomem": 9,
+    "tokens_memory": 748.3,
+    "tokens_nomem": 249.4,
+    "seconds_memory": 53.0,
+    "seconds_nomem": 27.6
+  },
+  "total_seconds": 806.8,
+  "rows": {
+    "p01-rank-2x2": {
+      "memory": {
+        "correct": 1,
+        "missing": [],
+        "answer": "The matrix \\( A = \\begin{bmatrix} 1 & 2 \\\\ 2 & 4 \\end{bmatrix} \\) has columns \\([1, 2]^T\\) and \\([2, 4]^T\\). The second column is a scalar multiple of the first column, indicating that the columns are linearly dependent. Therefore, the rank of \\( A \\) is 1, as the dimension of the span of its columns is 1.\n\nUSED: 1, 5",
+        "context_ids": [
+          "rank",
+          "example-projection-rank",
+          "rank-nullity",
+          "determinant",
+          "matrix-of-linear-map",
+          "image",
+          "dimension",
+          "kernel"
+        ],
+        "used_ids": [
+          "rank",
+          "matrix-of-linear-map"
+        ],
+        "prompt_tokens": 599,
+        "completion_tokens": 107,
+        "seconds": 48.41
+      },
+      "nomem": {
+        "correct": 1,
+        "missing": [],
+        "answer": "The matrix \\( A = \\begin{bmatrix} 1 & 2 \\\\ 2 & 4 \\end{bmatrix} \\) has linearly dependent rows [1]. Therefore, the rank of \\( A \\) is 1. USED: 1",
+        "context_ids": [],
+        "used_ids": [],
+        "prompt_tokens": 118,
+        "completion_tokens": 56,
+        "seconds": 12.34
+      }
+    },
+    "p02-det-2x2": {
+      "memory": {
+        "correct": 1,
+        "missing": [],
+        "answer": "Using cofactor expansion along the first row [1], we get:\n\ndet([[2, 1], [7, 4]]) = 2*det([4]) - 1*det([7]) = 2*4 - 1*7 = 8 - 7 = 1.\n\nUSED: 1",
+        "context_ids": [
+          "determinant",
+          "det-multiplicative",
+          "trace-det-eigenvalues",
+          "det-nonzero-iff-invertible",
+          "similar-char-poly",
+          "matrix-of-linear-map",
+          "trace",
+          "char-poly-roots"
+        ],
+        "used_ids": [
+          "determinant"
+        ],
+        "prompt_tokens": 549,
+        "completion_tokens": 68,
+        "seconds": 33.85
+      },
+      "nomem": {
+        "correct": 1,
+        "missing": [],
+        "answer": "The determinant of a 2x2 matrix \\(\\begin{bmatrix} a & b \\\\ c & d \\end{bmatrix}\\) is given by \\(ad - bc\\).\n\nFor the matrix \\(\\begin{bmatrix} 2 & 1 \\\\ 7 & 4 \\end{bmatrix}\\):\n\n\\[\n\\text{det} = (2 \\cdot 4) - (1 \\cdot 7) = 8 - 7 = 1\n\\]\n\nUSED: 3",
+        "context_ids": [],
+        "used_ids": [],
+        "prompt_tokens": 113,
+        "completion_tokens": 107,
+        "seconds": 18.08
+      }
+    },
+    "p03-nullity-bound": {
+      "memory": {
+        "correct": 1,
+        "missing": [],
+        "answer": "By the rank-nullity theorem [2], we have:\n\\[ \\dim(\\mathbb{R}^5) = \\dim(\\ker f) + \\dim(\\operatorname{im} f) \\]\nSince \\(\\dim(\\mathbb{R}^5) = 5\\), we get:\n\\[ 5 = \\dim(\\ker f) + \\dim(\\operatorname{im} f) \\]\n\nThe dimension of the image of \\(f\\) is at most 3 because \\(\\operatorname{im} f \\subseteq \\mathbb{R}^3\\). Therefore, the smallest possible value for \\(\\dim(\\operatorname{im} f)\\) is 0, which gives:\n\\[ \\dim(\\ker f) = 5 - 0 = 5 \\]\n\nHowever, \\(\\dim(\\operatorname{im} f)\\) cannot be 0 because \\(f\\) is a non-zero linear map. The smallest non-zero value for \\(\\dim(\\operatorname{im} f)\\) is 1, which gives:\n\\[ \\dim(\\ker f) = 5 - 1 = 4 \\]\n\nThus, the smallest possible value of \\(\\dim(\\ker f)\\) is 4.\n\nUSED: 2",
+        "context_ids": [
+          "if-f",
+          "rank-nullity",
+          "nullity",
+          "kernel",
+          "rank",
+          "image",
+          "basis",
+          "dimension"
+        ],
+        "used_ids": [
+          "rank-nullity"
+        ],
+        "prompt_tokens": 442,
+        "completion_tokens": 263,
+        "seconds": 65.58
+      },
+      "nomem": {
+        "correct": 1,
+        "missing": [],
+        "answer": "By the Rank-Nullity Theorem [1], for a linear map \\( f: \\mathbb{R}^5 \\to \\mathbb{R}^3 \\), we have:\n\\[ \\dim(\\ker f) + \\dim(\\operatorname{im} f) = 5. \\]\nThe dimension of the image of \\( f \\) is at most 3, so the smallest possible value of \\( \\dim(\\operatorname{im} f) \\) is 0. Therefore, the smallest possible value of \\( \\dim(\\ker f) \\) is:\n\\[ 5 - 3 = 2. \\]\n\nUSED: 1",
+        "context_ids": [],
+        "used_ids": [],
+        "prompt_tokens": 122,
+        "completion_tokens": 139,
+        "seconds": 26.32
+      }
+    },
+    "p04-eigenvalues-diag": {
+      "memory": {
+        "correct": 1,
+        "missing": [],
+        "answer": "The eigenvalues of a diagonal matrix are simply the entries on its diagonal. Therefore, the eigenvalues of diag(2, 3) are 2 and 3.\n\nUSED: 1",
+        "context_ids": [
+          "char-poly-roots",
+          "spectral-theorem",
+          "symmetric-real-eigenvalues",
+          "eigenspace",
+          "eigenvalue-eigenvector",
+          "characteristic-polynomial",
+          "det-nonzero-iff-invertible",
+          "symmetric-matrix"
+        ],
+        "used_ids": [
+          "char-poly-roots"
+        ],
+        "prompt_tokens": 538,
+        "completion_tokens": 40,
+        "seconds": 30.86
+      },
+      "nomem": {
+        "correct": 1,
+        "missing": [],
+        "answer": "The eigenvalues of a diagonal matrix are simply the entries on its diagonal. Therefore, the eigenvalues of the matrix diag(2, 3) are 2 and 3. \n\nUSED: 3",
+        "context_ids": [],
+        "used_ids": [],
+        "prompt_tokens": 110,
+        "completion_tokens": 43,
+        "seconds": 7.93
+      }
+    },
+    "p05-jordan-not-diag": {
+      "memory": {
+        "correct": 1,
+        "missing": [],
+        "answer": "No. The matrix has a repeated eigenvalue \u03bb = 1, but the geometric multiplicity of \u03bb = 1 is 1 (only one linearly independent eigenvector), while the algebraic multiplicity is 2. Thus, the sum of geometric multiplicities is less than 2, so it is not diagonalizable over R. USED: 1",
+        "context_ids": [
+          "diagonalizability-criterion",
+          "diagonalizable",
+          "spectral-theorem",
+          "invertibility-equivalences",
+          "orthogonal-matrix",
+          "eigenspace",
+          "dimension",
+          "distinct-eigenvalues-independent"
+        ],
+        "used_ids": [],
+        "prompt_tokens": 604,
+        "completion_tokens": 75,
+        "seconds": 37.02
+      },
+      "nomem": {
+        "correct": 1,
+        "missing": [],
+        "answer": "No. The matrix has repeated eigenvalues (\u03bb=1), but does not have 2 linearly independent eigenvectors [3].\n\nUSED: 3",
+        "context_ids": [],
+        "used_ids": [],
+        "prompt_tokens": 123,
+        "completion_tokens": 33,
+        "seconds": 7.92
+      }
+    },
+    "p06-proof-det-invertible": {
+      "memory": {
+        "correct": 1,
+        "missing": [],
+        "answer": "By [1], a square matrix A is invertible if and only if det A is nonzero. Therefore, if A is invertible, det A is not zero. USED: 1",
+        "context_ids": [
+          "det-nonzero-iff-invertible",
+          "det-multiplicative",
+          "invertibility-equivalences",
+          "cayley-hamilton",
+          "symmetric-matrix",
+          "determinant",
+          "kernel",
+          "rank"
+        ],
+        "used_ids": [
+          "det-nonzero-iff-invertible"
+        ],
+        "prompt_tokens": 532,
+        "completion_tokens": 39,
+        "seconds": 29.16
+      },
+      "nomem": {
+        "correct": 1,
+        "missing": [],
+        "answer": "Given that \\( A \\) is an invertible square matrix, by definition, there exists a matrix \\( B \\) such that \\( AB = BA = I \\), where \\( I \\) is the identity matrix. The determinant of the identity matrix is 1, i.e., \\( \\det(I) = 1 \\).\n\nUsing the property of determinants that states \\( \\det(AB) = \\det(A) \\det(B) \\), we have:\n\\[ \\det(AB) = \\det(A) \\det(B) = \\det(I) = 1. \\]\n\nSince the determinant of a product of matrices is the product of their determinants, and the determinant of the identity matrix is 1, it follows that \\( \\det(A) \\det(B) = 1 \\). For this equation to hold, \\( \\det(A) \\) must be a non-zero value. Therefore, \\( \\det(A) \\neq 0 \\).\n\nUSED: 3",
+        "context_ids": [],
+        "used_ids": [],
+        "prompt_tokens": 114,
+        "completion_tokens": 204,
+        "seconds": 37.6
+      }
+    },
+    "p07-proof-distinct-eigenvalues": {
+      "memory": {
+        "correct": 0,
+        "missing": [
+          "independ"
+        ],
+        "answer": "Let \\( f: V \\to V \\) be a linear map, and let \\( \\lambda_1, \\lambda_2, \\ldots, \\lambda_k \\) be distinct eigenvalues of \\( f \\). Let \\( v_1, v_2, \\ldots, v_k \\) be the corresponding eigenvectors, i.e., \\( f(v_i) = \\lambda_i v_i \\) for \\( i = 1, 2, \\ldots, k \\).\n\nAssume \\( a_1 v_1 + a_2 v_2 + \\cdots + a_k v_k = 0 \\). Applying \\( f \\) to both sides, we get:\n\\[ f(a_1 v_1 + a_2 v_2 + \\cdots + a_k v_k) = f(0) = 0. \\]\nUsing the linearity of \\( f \\), this becomes:\n\\[ a_1 f(v_1) + a_2 f(v_2) + \\cdots + a_k f(v_k) = 0. \\]\nSubstituting \\( f(v_i) = \\lambda_i v_i \\), we have:\n\\[ a_1 \\lambda_1 v_1 + a_2 \\lambda_2 v_2 + \\cdots + a_k \\lambda_k v_k = 0. \\]\n\nNow, consider the equation:\n\\[ a_1 v_1 + a_2 v_2 + \\cdots + a_k v_k = 0. \\]\nSubtracting \\( \\frac{a_1}{\\lambda_1} \\lambda_1 v_1 \\) from both sides, we get:\n\\[ a_2 v_2 + \\cdots + a_k v_k - \\frac{a_1}{\\lambda_1} a_2 \\lambda_2 v_2 - \\cdots - \\frac{a_1}{\\lambda_1} a_k \\lambda_k v_k = 0. \\]\nThis simplifies to:\n\\[ \\left(1 - \\frac{a_1 \\lambda_2}{\\lambda_1}\\right) a_2 v_2 + \\cdots + \\left(1 - \\frac{a_1 \\lambda_k}{\\lambda_1}\\right) a_k v_k = 0. \\]\nSince \\( \\lambda_1, \\lambda_2, \\ldots,",
+        "context_ids": [
+          "distinct-eigenvalues-independent",
+          "eigenvalue-eigenvector",
+          "linear-independence",
+          "symmetric-real-eigenvalues",
+          "char-poly-roots",
+          "linear-map",
+          "kernel",
+          "span"
+        ],
+        "used_ids": [],
+        "prompt_tokens": 525,
+        "completion_tokens": 512,
+        "seconds": 113.84
+      },
+      "nomem": {
+        "correct": 1,
+        "missing": [],
+        "answer": "Assume \\( \\mathbf{v}_1 \\) and \\( \\mathbf{v}_2 \\) are eigenvectors corresponding to distinct eigenvalues \\( \\lambda_1 \\) and \\( \\lambda_2 \\) of a linear map \\( T \\). Suppose \\( c_1 \\mathbf{v}_1 + c_2 \\mathbf{v}_2 = \\mathbf{0} \\) for some scalars \\( c_1 \\) and \\( c_2 \\). Applying \\( T \\) to both sides, we get:\n\\[ T(c_1 \\mathbf{v}_1 + c_2 \\mathbf{v}_2) = T(\\mathbf{0}) = \\mathbf{0} \\]\nUsing linearity of \\( T \\):\n\\[ c_1 T(\\mathbf{v}_1) + c_2 T(\\mathbf{v}_2) = c_1 \\lambda_1 \\mathbf{v}_1 + c_2 \\lambda_2 \\mathbf{v}_2 = \\mathbf{0} \\]\nSince \\( \\lambda_1 \\neq \\lambda_2 \\), the only solution to this equation is \\( c_1 = 0 \\) and \\( c_2 = 0 \\). Therefore, \\( \\mathbf{v}_1 \\) and \\( \\mathbf{v}_2 \\) are linearly independent. USED: 3",
+        "context_ids": [],
+        "used_ids": [],
+        "prompt_tokens": 115,
+        "completion_tokens": 304,
+        "seconds": 49.71
+      }
+    },
+    "p08-orthonormalize": {
+      "memory": {
+        "correct": 0,
+        "missing": [
+          "sqrt\\s*\\(?\\s*2|\u221a2"
+        ],
+        "answer": "The vector (1, 1) has a norm of \\(\\sqrt{2}\\). The unit vector in the direction of (1, 1) is \\(\\frac{1}{\\sqrt{2}}(1, 1) = \\left(\\frac{1}{\\sqrt{2}}, \\frac{1}{\\sqrt{2}}\\right)\\), which can also be written as \\(\\left(\\frac{1}{\\sqrt{2}}, \\frac{1}{\\sqrt{2}}\\right) = \\left(\\frac{\\sqrt{2}}{2}, \\frac{\\sqrt{2}}{2}\\right)\\).\n\nUSED: 5, 3",
+        "context_ids": [
+          "inner-product",
+          "adjoint",
+          "example-gram-schmidt",
+          "gram-schmidt",
+          "norm",
+          "vector-space",
+          "linear-map",
+          "orthogonal-basis"
+        ],
+        "used_ids": [
+          "norm",
+          "example-gram-schmidt"
+        ],
+        "prompt_tokens": 822,
+        "completion_tokens": 143,
+        "seconds": 54.86
+      },
+      "nomem": {
+        "correct": 0,
+        "missing": [
+          "sqrt\\s*\\(?\\s*2|\u221a2"
+        ],
+        "answer": "To find a unit vector in the direction of \\((1, 1)\\), first compute its magnitude. The magnitude of \\((1, 1)\\) is \\(\\sqrt{1^2 + 1^2} = \\sqrt{2}\\). The unit vector is then \\(\\left(\\frac{1}{\\sqrt{2}}, \\frac{1}{\\sqrt{2}}\\right)\\) or \\(\\left(\\frac{\\sqrt{2}}{2}, \\frac{\\sqrt{2}}{2}\\right)\\).\n\nUSED: 3",
+        "context_ids": [],
+        "used_ids": [],
+        "prompt_tokens": 119,
+        "completion_tokens": 118,
+        "seconds": 43.58
+      }
+    },
+    "p09-cayley-hamilton": {
+      "memory": {
+        "correct": 1,
+        "missing": [],
+        "answer": "First, find the characteristic polynomial of \\( A \\).\n\nThe characteristic polynomial \\( \\chi_A(t) \\) is given by:\n\\[ \\chi_A(t) = \\det(tI - A) \\]\nFor \\( A = \\begin{bmatrix} 1 & 2 \\\\ 0 & 1 \\end{bmatrix} \\), we have:\n\\[ tI - A = \\begin{bmatrix} t-1 & -2 \\\\ 0 & t-1 \\end{bmatrix} \\]\nThe determinant is:\n\\[ \\det(tI - A) = (t-1)(t-1) - 0 = (t-1)^2 \\]\nSo, the characteristic polynomial is:\n\\[ \\chi_A(t) = (t-1)^2 \\]\n\nBy the Cayley-Hamilton theorem, \\( A \\) satisfies its characteristic polynomial:\n\\[ (A - I)^2 = 0 \\]\nExpanding this, we get:\n\\[ A^2 - 2A + I = 0 \\]\nRearranging, we find:\n\\[ A^2 = 2A - I \\]\n\nUSED: cayley-hamilton",
+        "context_ids": [
+          "cayley-hamilton",
+          "pythagorean-theorem",
+          "example-gram-schmidt",
+          "for-a-2x2-matrix-a-a-b-c-d-with-ad-bc-nonzero",
+          "orthonormal-expansion",
+          "characteristic-polynomial",
+          "matrix-of-linear-map",
+          "orthogonality"
+        ],
+        "used_ids": [
+          "cayley-hamilton"
+        ],
+        "prompt_tokens": 712,
+        "completion_tokens": 244,
+        "seconds": 66.95
+      },
+      "nomem": {
+        "correct": 1,
+        "missing": [],
+        "answer": "First, find the characteristic polynomial of \\( A \\). The characteristic polynomial is given by \\( \\det(A - \\lambda I) \\).\n\nFor \\( A = \\begin{pmatrix} 1 & 2 \\\\ 0 & 1 \\end{pmatrix} \\):\n\n\\[ A - \\lambda I = \\begin{pmatrix} 1 - \\lambda & 2 \\\\ 0 & 1 - \\lambda \\end{pmatrix} \\]\n\nThe determinant is:\n\n\\[ \\det(A - \\lambda I) = (1 - \\lambda)(1 - \\lambda) - (2 \\cdot 0) = (1 - \\lambda)^2 \\]\n\nSo, the characteristic polynomial is \\( p(\\lambda) = (\\lambda - 1)^2 \\).\n\nBy the Cayley-Hamilton theorem, \\( p(A) = 0 \\):\n\n\\[ (A - I)^2 = 0 \\]\n\nExpanding this:\n\n\\[ (A - I)(A - I) = A^2 - 2A + I = 0 \\]\n\nThus:\n\n\\[ A^2 = 2A - I \\]\n\nUSED: 3",
+        "context_ids": [],
+        "used_ids": [],
+        "prompt_tokens": 129,
+        "completion_tokens": 237,
+        "seconds": 58.12
+      }
+    },
+    "p10-spectral-statement": {
+      "memory": {
+        "correct": 1,
+        "missing": [],
+        "answer": "Every real symmetric n x n matrix A is orthogonally diagonalizable: A = Q D Q^T with Q orthogonal and D real diagonal. Equivalently, R^n has an orthonormal basis of eigenvectors of A. USED: 1",
+        "context_ids": [
+          "spectral-theorem",
+          "symmetric-real-eigenvalues",
+          "symmetric-matrix",
+          "inner-product",
+          "trace-det-eigenvalues",
+          "orthonormal-basis",
+          "diagonalizable",
+          "orthogonal-complement"
+        ],
+        "used_ids": [],
+        "prompt_tokens": 614,
+        "completion_tokens": 55,
+        "seconds": 49.27
+      },
+      "nomem": {
+        "correct": 1,
+        "missing": [],
+        "answer": "A real symmetric matrix \\( A \\) has an orthogonal basis of eigenvectors, and the matrix can be diagonalized as \\( A = Q \\Lambda Q^T \\), where \\( Q \\) is an orthogonal matrix whose columns are the eigenvectors of \\( A \\), and \\( \\Lambda \\) is a diagonal matrix whose entries are the eigenvalues of \\( A \\). [1]\n\nUSED: 1",
+        "context_ids": [],
+        "used_ids": [],
+        "prompt_tokens": 104,
+        "completion_tokens": 86,
+        "seconds": 13.93
+      }
+    }
+  }
+}

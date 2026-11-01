@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Living Memory — the AI math tutor that remembers you</title>
+<meta name="description" content="An AI math tutor that finds the exact prerequisite you're missing and compacts what you learn into rules. Built at EMI Rabat.">
+<style>
+  :root{
+    --bg:#070b14;
+    --panel:#0d1424;
+    --panel-2:#111a2e;
+    --text:#e8eefc;
+    --muted:#8fa0bf;
+    --line:#1d2a45;
+    --accent:#6ea8ff;
+    --accent-2:#8b7cff;
+    --good:#4ade80;
+    --radius:16px;
+    --max:1080px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:
+      radial-gradient(900px 500px at 75% -10%, rgba(110,168,255,.16), transparent 60%),
+      radial-gradient(700px 450px at 10% 10%, rgba(139,124,255,.12), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.2px}
+  .mark{width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;color:#06101f;font-size:15px;font-weight:800}
+  .nav-cta{border:1px solid var(--line);padding:9px 14px;border-radius:999px;color:var(--muted);font-size:14px}
+  .nav-cta:hover{color:var(--text);border-color:#2c3d61}
+  header{padding:64px 0 34px;text-align:center}
+  .badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:rgba(17,26,46,.6);color:var(--muted);font-size:13px;padding:7px 12px;border-radius:999px;margin-bottom:22px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 12px var(--good)}
+  h1{font-size:clamp(38px,6vw,68px);line-height:1.04;letter-spacing:-.035em;margin:0 0 18px}
+  h1 .grad{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{max-width:640px;margin:0 auto 28px;color:var(--muted);font-size:clamp(16px,2.2vw,20px)}
+  .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 20px;border-radius:12px;font-weight:650;font-size:15px;border:1px solid transparent;cursor:pointer}
+  .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#06101f}
+  .btn-primary:hover{filter:brightness(1.08)}
+  .btn-ghost{border-color:var(--line);color:var(--text);background:rgba(17,26,46,.5)}
+  .btn-ghost:hover{border-color:#2c3d61}
+  .micro{color:var(--muted);font-size:13px;margin-top:14px}
+  .hero-shot{margin:46px auto 0;max-width:920px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,var(--panel),#0a101d);padding:10px;box-shadow:0 40px 120px rgba(0,0,0,.45)}
+  .shot-top{display:flex;gap:7px;padding:6px 8px 12px}
+  .shot-top i{width:10px;height:10px;border-radius:50%;background:#22304d;display:block}
+  .shot-body{border:1px solid var(--line);border-radius:11px;background:#080d18;padding:20px;text-align:left;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;color:#c8d6f2;overflow:auto}
+  .shot-body .p{color:var(--accent)}
+  .shot-body .c{color:var(--muted)}
+  .shot-body .g{color:var(--good)}
+  .shot-body .w{color:#fbbf24}
+  section{padding:74px 0}
+  .eyebrow{color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+  h2{font-size:clamp(28px,4vw,42px);line-height:1.1;letter-spacing:-.03em;margin:0 0 14px}
+  .lead{color:var(--muted);max-width:680px;font-size:17px;margin:0 0 34px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .card{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),#0a101d);border-radius:var(--radius);padding:24px}
+  .card h3{margin:14px 0 8px;font-size:17px}
+  .card p{color:var(--muted);margin:0;font-size:14.5px}
+  .num{width:34px;height:34px;border-radius:10px;background:rgba(110,168,255,.12);border:1px solid rgba(110,168,255,.25);display:grid;place-items:center;color:var(--accent);font-weight:800;font-size:14px}
+  .compare{width:100%;border-collapse:collapse;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-size:14.5px}
+  .compare th,.compare td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line)}
+  .compare th{background:#0b1220;color:var(--muted);font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+  .compare tr:last-child td{border-bottom:none}
+  .compare td:not(:first-child),.compare th:not(:first-child){text-align:center}
+  .yes{color:var(--good);font-weight:700}
+  .no{color:#33415e}
+  .us{background:rgba(110,168,255,.07)}
+  .us td:first-child{font-weight:700}
+  .quote{border-left:2px solid var(--accent);padding:6px 0 6px 20px;color:#cdd9ef;font-size:18px;max-width:720px}
+  .quote span{display:block;color:var(--muted);font-size:13px;margin-top:10px}
+  .faq{max-width:760px}
+  details{border-bottom:1px solid var(--line);padding:16px 0}
+  summary{cursor:pointer;font-weight:600;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";float:right;color:var(--muted)}
+  details[open] summary::after{content:"–"}
+  details p{color:var(--muted);margin:10px 0 0;font-size:14.5px}
+  .waitlist{border:1px solid var(--line);background:linear-gradient(135deg,rgba(110,168,255,.10),rgba(139,124,255,.08));border-radius:22px;padding:38px;text-align:center}
+  .waitlist h2{margin-bottom:8px}
+  .waitlist p{color:var(--muted);margin:0 auto 22px;max-width:520px}
+  form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  input[type=email]{background:#080d18;border:1px solid var(--line);color:var(--text);padding:13px 16px;border-radius:12px;min-width:280px;font-size:15px;outline:none}
+  input[type=email]:focus{border-color:var(--accent)}
+  .form-note{color:var(--muted);font-size:12.5px;margin-top:12px}
+  footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  @media (max-width:820px){
+    .grid3{grid-template-columns:1fr}
+    header{padding-top:40px}
+    section{padding:56px 0}
+    .compare{font-size:13px}
+    .compare th,.compare td{padding:11px 9px}
+    .waitlist{padding:26px 18px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav>
+    <div class="brand"><div class="mark">L</div> Living Memory</div>
+    <a class="nav-cta" href="#waitlist">Join the beta</a>
+  </nav>
+
+  <header>
+    <div class="badge"><span class="dot"></span> Built at EMI Rabat · private beta</div>
+    <h1>Your AI math tutor<br><span class="grad">remembers you.</span></h1>
+    <p class="sub">It finds the exact prerequisite you're missing — not another explanation of the whole chapter. And it never forgets what you've mastered.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#waitlist">Join the beta →</a>
+      <a class="btn btn-ghost" href="#how">See how it works</a>
+    </div>
+    <p class="micro">Free for the first 100 students. No credit card.</p>
+
+    <div class="hero-shot" aria-label="Product preview">
+      <div class="shot-top"><i></i><i></i><i></i></div>
+      <div class="shot-body">
+<span class="p">&gt;</span> Is there an injective linear map from R5 to R3?<br><br>
+<span class="c">[context: rank-nullity, kernel, dimension, linear-map, image]</span><br>
+<span class="c">[cited : rank-nullity, dimension]</span><br><br>
+No. If f is injective then ker f = {0}, so by rank–nullity<br>
+dim V = dim im f ≤ dim W. But 5 ≤ 3 is false.<br><br>
+<span class="c">Why this answer:</span> <span class="g">rank–nullity</span> → <span class="g">kernel</span> → <span class="g">dimension</span><br>
+<span class="w">Your gap:</span> you have not yet mastered <span class="g">rank–nullity</span>.<br><br>
+<span class="p">&gt;</span> /teach <span class="c">…</span> <span class="c">(nothing is saved until you approve)</span><br>
+<span class="p">&gt;</span> /save <span class="g">saved with 3 dependency edges</span>
+      </div>
+    </div>
+  </header>
+
+  <section id="how">
+    <div class="eyebrow">How it works</div>
+    <h2>It doesn't just answer. It diagnoses.</h2>
+    <p class="lead">Every theorem depends on other theorems. When you get stuck, the tutor walks the dependency graph to the exact node you're missing — then teaches that.</p>
+    <div class="grid3">
+      <div class="card">
+        <div class="num">1</div>
+        <h3>Ask anything</h3>
+        <p>Linear algebra, proofs, exercises. The tutor retrieves the relevant theorems and shows you which ones it used.</p>
+      </div>
+      <div class="card">
+        <div class="num">2</div>
+        <h3>Find the gap</h3>
+        <p>It traces the proof back to the missing prerequisite. You see the path, not a black box: theorem → lemma → definition.</p>
+      </div>
+      <div class="card">
+        <div class="num">3</div>
+        <h3>Remember, then compact</h3>
+        <p>What you learn is verified and stored. Repeated mistakes become one general rule, so memory shrinks instead of bloating.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Why it's different</div>
+    <h2>Everyone answers. Nobody remembers <em>and</em> verifies.</h2>
+    <p class="lead">A chatbot with history is not a tutor. A tutor needs a model of what you know, proof that it's right, and a memory that gets smaller as you learn.</p>
+    <table class="compare">
+      <thead>
+        <tr><th></th><th>Answers</th><th>Remembers you</th><th>Verifies</th><th>Finds the gap</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>ChatGPT / Khanmigo</td><td class="yes">✓</td><td class="no">—</td><td class="no">—</td><td class="no">—</td></tr>
+        <tr><td>Photomath / Symbolab</td><td class="yes">✓</td><td class="no">—</td><td class="no">—</td><td class="no">—</td></tr>
+        <tr><td>Human tutor</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓ (expensive)</td></tr>
+        <tr class="us"><td>Living Memory</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <div class="eyebrow">The thesis</div>
+    <h2>Memory should get smaller and more useful.</h2>
+    <p class="lead">Most AI memory just appends. You end up with ten near-copies of the same fact, and retrieval returns the same thing five times. We consolidate recurring cases into one general rule — verified, with an archive, so nothing is lost.</p>
+    <blockquote class="quote">
+      “The tutor found that I didn't understand rank–nullity, not determinants. Nobody had told me that before.”
+      <span>— placeholder for a real pilot testimonial. Replace only with a verbatim quote.</span>
+    </blockquote>
+  </section>
+
+  <section>
+    <div class="eyebrow">FAQ</div>
+    <h2>Questions students ask</h2>
+    <div class="faq">
+      <details>
+        <summary>Is this just ChatGPT with a prompt?</summary>
+        <p>No. It keeps a verified dependency graph of what you know, cites the theorems it used, and refuses to store an unverified claim. ChatGPT has no persistent model of your knowledge; it re-explains from scratch every time.</p>
+      </details>
+      <details>
+        <summary>Does it work offline?</summary>
+        <p>The first version runs a local 7B model on a laptop, so your data stays with you and answers cost almost nothing. A hosted version is coming for phones.</p>
+      </details>
+      <details>
+        <summary>What math does it cover?</summary>
+        <p>Linear algebra first: vector spaces, bases, dimension, linear maps, kernel and image, rank–nullity, eigenvalues, diagonalization, the spectral theorem. More courses are added based on student requests.</p>
+      </details>
+      <details>
+        <summary>Can I trust the proofs?</summary>
+        <p>Every answer is traceable to stored theorems and shows the dependency path. If a proof is wrong, you can see exactly which step or which stored result is responsible. Nothing enters the trusted memory without verification.</p>
+      </details>
+      <details>
+        <summary>How much will it cost?</summary>
+        <p>Free for the first 100 students. After the beta: 50 MAD/month in Morocco, $9/month internationally. If the price is a barrier, tell us — we'll work something out.</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="waitlist">
+    <div class="waitlist">
+      <h2>Be one of the first 100 students.</h2>
+      <p>Tell us what course you're taking and where you get stuck. We'll invite you to the beta and personally set up your first session.</p>
+      <!-- Replace YOUR_FORM_ID with a Tally, Formspree, or Google Forms endpoint.
+           Until then, the form falls back to a mailto link in the script below. -->
+      <form id="waitlist-form" data-endpoint="" action="mailto:hello@example.com" method="post" enctype="text/plain">
+        <input type="email" name="email" placeholder="you@university.edu" required aria-label="Email address">
+        <button class="btn btn-primary" type="submit">Join the beta</button>
+      </form>
+      <p class="form-note" id="form-note">No spam. One email when your invite is ready.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div>© 2026 Living Memory · Rabat, Morocco</div>
+    <div>Built with a local model, no cloud.</div>
+  </footer>
+</div>
+
+<script>
+  // If you set data-endpoint to a real form URL, this posts to it.
+  // Otherwise it opens the visitor's mail client with a prefilled subject.
+  const form = document.getElementById('waitlist-form');
+  const note = document.getElementById('form-note');
+  form.addEventListener('submit', async (e) => {
+    const endpoint = form.getAttribute('data-endpoint');
+    if (!endpoint) return; // let the mailto fallback happen
+    e.preventDefault();
+    const email = new FormData(form).get('email');
+    try {
+      await fetch(endpoint, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email})
+      });
+      form.innerHTML = '<p style="color:var(--good);font-weight:600">You’re on the list. We’ll be in touch.</p>';
+      note.textContent = 'Check your inbox for a confirmation.';
+    } catch (err) {
+      note.textContent = 'Something went wrong. Email us directly and we’ll add you.';
+    }
+  });
+</script>
+</body>
+</html>
